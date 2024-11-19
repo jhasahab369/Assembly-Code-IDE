@@ -1,0 +1,11 @@
+Line: 3 WARNING: Unused Label
+WARNING !! : HALT not found
+Line: 4 ERROR: Duplicate Label used
+Line: 5 ERROR: Label not declared
+Line: 6 ERROR: Invalid Label Format
+Line: 7 ERROR: Operand is missing
+Line: 8 ERROR: Extra Operand in zero operand operation
+Line: 9 ERROR: Extra Operand present
+Line: 10 ERROR: Invalid Label Name
+Line: 11 ERROR: Invalid Operation Name
+Line: 12 ERROR: Invalid Operation Name

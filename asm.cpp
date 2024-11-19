@@ -424,6 +424,7 @@ int main(int argc, char **argv)
         label.first is the label name.
         label.second.first is the address (or -1 if undeclared).
         label.second.second is the line number where the label is defined.
+        
 
     */
 
@@ -468,6 +469,8 @@ int main(int argc, char **argv)
         errorFileOutput.close();
     }
     //this is where the second pass starts from ----------------------
+    // would proceed if there arent errors -
+
     int noErrorFlag = 0;
     if (errorList.empty()) {
         noErrorFlag = 1;
@@ -628,6 +631,7 @@ int main(int argc, char **argv)
         }
 
         // listing files
+
         string listFileName = fileName + ".lst";
         ofstream listFileOutput(listFileName);
         for (const auto& output : listingEntries) {
@@ -636,6 +640,8 @@ int main(int argc, char **argv)
         listFileOutput.close();
 
         // converting and writing machine code file in binary format
+        //and exporting the file 
+        // unsigned int is used for "consistency" across machine code 
         string machineFileName = fileName + ".o";
         ofstream machineFileOutput(machineFileName, ios::binary | ios::out);
         for (const auto& code : machineCode) {
@@ -645,6 +651,7 @@ int main(int argc, char **argv)
             }
         }
         machineFileOutput.close();
+
     }
 
     return 0;

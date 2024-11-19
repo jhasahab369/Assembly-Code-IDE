@@ -218,70 +218,58 @@ void subtract(int) {
 void shiftLeft(int) {
     accumulator = registerB << accumulator;
 }
-
 // Shift registerB right by the value of accumulator, store result in accumulator
 void shiftRight(int) {
     accumulator = registerB >> accumulator;
 }
-
 // Adjust stack pointer by the specified value
 void adjustStackPointer(int value) {
     stackPointer += value;
 }
-
 // Set stack pointer to accumulator, shift registerB to accumulator
 void accumulatorToStackPointer(int) {
     stackPointer = accumulator;
     accumulator = registerB;
 }
-
 // Set accumulator to stack pointer, shift accumulator to registerB
 void stackPointerToAccumulator(int) {
     registerB = accumulator;
     accumulator = stackPointer;
 }
-
 // Store program counter in accumulator, update program counter by offset (jump to subroutine)
 void callFunction(int offset) {
     registerB = accumulator;
     accumulator = programCounter;
     programCounter += offset;
 }
-
 // Set program counter to accumulator (return from subroutine), shift accumulator to registerB
 void returnFunction(int) {
     programCounter = accumulator;
     accumulator = registerB;
 }
-
 // If accumulator is zero, update program counter by offset
 void branchIfZero(int offset) {
     if (accumulator == 0) {
         programCounter += offset;
     }
 }
-
 // If accumulator is negative, update program counter by offset
 void branchIfLessThanZero(int offset) {
     if (accumulator < 0) {
         programCounter += offset;
     }
 }
-
 // Update program counter by offset
 void unconditionalBranch(int offset) {
     programCounter += offset;
 }
-
 // stop
 void haltExecution(int) {
     return;
 }
-
 // Information to call respective function for each operation
 vector<string> operationMnemonics = {"ldc", "adc", "ldl", "stl", "ldnl", "stnl", "add", "sub", 
                                      "shl", "shr", "adj", "a2sp", "sp2a", "call", "return", "brz", "brlz", "br", "HALT"};
-
 // Function pointers for each operation, matching the mnemonics order
 void (*operationFunctions[])(int value) = {loadConstant, addConstant, loadLocal, storeLocal, loadNonLocal, storeNonLocal, add, 
                                            subtract, shiftLeft, shiftRight, adjustStackPointer, accumulatorToStackPointer, 
@@ -290,7 +278,6 @@ void (*operationFunctions[])(int value) = {loadConstant, addConstant, loadLocal,
 
 // Operand table mapping mnemonics to opcodes and operand types
 map<string, pair<string, int>> operandTable;  // {mnemonic, {opcode, operandType}}
-
 string decimalToHex(int decimalNumber) {
     unsigned int number = decimalNumber;
     string hexResult = "";
@@ -301,30 +288,25 @@ string decimalToHex(int decimalNumber) {
     reverse(hexResult.begin(), hexResult.end());
     return hexResult;
 }
-
 // Error handling function for runtime issues (segmentation faults, infinite loops, etc.)
 void throwError() {
     cout << "Segmentation Fault (or possible infinite loop)" << endl;
     cout << "Please check your code for issues." << endl;
     exit(0);
 }
-
 // Print current values of the main registers (program counter, stack pointer, accumulator, registerB)
 void traceRegisters() {
     printf("PC = %08X, SP = %08X, A = %08X, B = %08X ", programCounter, stackPointer, accumulator, registerB);
 }
-
 // Reads operation trace and shows the last read address and current value in the accumulator
 void traceReadOperation() {
     cout << "Reading memory[" << decimalToHex(readWriteLog.first) << "] finds " << decimalToHex(accumulator) << endl;
 }
-
 // Writes operation trace and shows last write address, previous value, and updated value in memory
 void traceWriteOperation() {
     cout << "Writing memory[" << decimalToHex(readWriteLog.first) << "] was " 
          << decimalToHex(readWriteLog.second) << " now " << decimalToHex(memorySpace[readWriteLog.first]) << endl;
 }
-
 // Display memory contents before execution
 void memoryDumpBeforeExecution() {
     cout << "Memory dump before execution:" << endl;
@@ -336,7 +318,6 @@ void memoryDumpBeforeExecution() {
         cout << endl;
     }
 }
-
 // Display memory contents after execution
 void memoryDumpAfterExecution() {
     cout << "Memory dump after execution:" << endl;
@@ -348,12 +329,10 @@ void memoryDumpAfterExecution() {
         cout << endl;
     }
 }
-
 // Reset all primary registers (accumulator, registerB, stackPointer, programCounter) to zero
 void resetRegisters() {
     accumulator = registerB = stackPointer = programCounter = 0;
 }
-
 // Display the instruction set
 void displayInstructionSet() {
     cout << "Opcode  Mnemonic  Operand" << '\n';
@@ -377,14 +356,12 @@ void displayInstructionSet() {
     cout << "18      HALT            " << "\n";
     cout << "         SET       value " << "\n";
 }
-
 // Execute each decoded instruction
 int executionCount = 0;
 bool executeInstruction(int currentLine, int traceFlag) {
     int opcode = (currentLine & 0xFF);
     int value = (currentLine - opcode) >> 8;
     ++lineCounter;
-
     operationFunctions[opcode](value);  // Call the respective operation function
     int prevPC = programCounter;
 
@@ -421,7 +398,6 @@ bool executeInstruction(int currentLine, int traceFlag) {
     }
     return false;
 }
-
 // Execute all instructions line by line
 void runProgram(int traceFlag) {
     while (programCounter < (int)machineCodeInstructions.size()) {
@@ -430,7 +406,6 @@ void runProgram(int traceFlag) {
         if (shouldQuit) break;
     }
 }
-
 // Parse and execute commands
 void executeCommand(string command) {
     if (command == "-trace") {
@@ -468,7 +443,6 @@ void loadMachineCode(string filename) {
         memorySpace[memoryAddress++] = currentInstruction;
     }
 }
-
 // Main program function to handle command-line arguments
 int main(int argc, char* argv[]) {
     if (argc <= 2) {
@@ -484,10 +458,7 @@ int main(int argc, char* argv[]) {
         cout << "-isa    display ISA" << endl;
         return 0;
     }
-
-    string filename = argv[2];
-
-    // Initialize operand table with opcodes and operand types
+    string filename = argv[2];    
     operandTable["data"] = {"", 1};
     operandTable["ldc"]  = {"00", 1};
     operandTable["adc"]  = {"01", 1};

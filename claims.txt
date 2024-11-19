@@ -1,0 +1,440 @@
+/*
+						TITLE : Claims
+						
+						NAME  	          : Bibhuti Jha
+						ROLL NUMBER       : 2301CS94
+						Declaration of Authorship:
+						This document is a submission for the course CS1202 
+						at the Department of Computer Science and Engineering, IIT Patna.
+						I have tried my level best to program the assembler and emulator with extensive debugging. Enjoyed it!
+
+*/
+
+-------------------
+SUBMISSION OVERVIEW:
+-------------------
+
+Project Files:
+--------------
+
+- The main project files, including `asm.cpp`, `emu.cpp`, `claims.txt`, and a full set of test files, have been submitted.
+
+Provided Test Files:
+____________________
+
+- All test files provided (`test1` to `test4.asm`) are stored in the folder "Provided Test Files" along with their respective outputs:
+  - `test1.asm` → Output files: `test1.log`, `test1.lst`, `test1.o`
+  - `test2.asm` → Output file: `test2.log`
+  - `test3.asm` → Output files: `test3.log`, `test3.lst`, `test3.o`
+
+
+Custom Test Files:
+____________________
+
+- Custom tests have been created for further validation and are organized with their corresponding outputs as follows:
+  - `errors.asm` → Output file: `error.log`
+  - `setTest.asm` → Output files: `setTest.log`, `setTest.lst`, `setTest.o`
+  - `move.asm` → Output files: `move.log`, `move.lst`, `move.o`
+  - `minEle.asm` → Output files: `minEle.log`, `minEle.lst`, `minEle.o`
+  - `maxEle.asm` → Output files: `maxEle.log`, `maxEle.lst`, `maxEle.o`
+  - `sum.asm` → Output files: `sum.log`, `sum.lst`, `sum.o`
+  - `binSrch.asm` → Output files: `binSrch.log`, `binSrch.lst`, `binSrch.o`
+
+Additional Program:
+____________________
+
+
+- `bubble.asm` 
+- Implements the Bubble Sort Algorithm, with output files: 
+	`bubble.log` 
+	`bubble.lst`, 
+	`bubble.o`. 
+
+Functionality of this program has been tested and confirmed to be operational.
+
+
+--------------------------
+COMPLIATION INSTRUCTIONS : 
+--------------------------
+
+=>
+asm.cpp - 
+	Windows, Ubuntu, Linux - 
+	    
+		g++ asm.cpp -o asm
+	   	./asm <insert_file_name>.asm
+=>
+emu.cpp - 
+	Windows, Ubuntu -
+		g++ emu.cpp -o emu
+	    	./emu  -<OPTION> <insert_file_name>.object
+		
+		where option can be : 
+			trace 
+			read  
+			write 
+			before
+			after 
+			wipe  
+			isa   
+
+=>
+All the input files are to be present in the same folder where the code is being executed
+
+-----------------------------
+PROJECT FORMAT AND STRUCTURE:
+-----------------------------
+
+////////////////////////
+////////////////////////
+////////////////////////
+
+
+ASSEMBLER :-
+=> 
+asm.cpp is the main and the only file for the assembler
+=>
+
+Implementeed a 2-pass assembler in the language - C++.
+In the code, comments or self-descriptive variable names have been used.
+
+=>
+
+All instructions mentioned in the project detail file have been implemented (includeing SET instruction)
+
+=>
+
+The assembler outputs the required correct information in the form of three files
+       *  Log file in 		.log file for errors and warnings
+       *  Listing file in 	.lst file for listing 
+       *  Machine Code in 	.o file for machine code object
+		note-	if the program contains only warnings, it will generate the all 3 files for the .ams file 
+				but if the program contains errors, it will generate only the log file
+=>
+All errors diagnosed are written in .log file along with thier line numbers. For e.g unknown instruction , no such label , duplicate label.
+It also generates warnings whenever detected. For e.g there is a label declared but has not been used in the code.  
+=>
+Listing file is generated in the optimum format 
+		For e.g test1.lst - 
+		0 00000000 label: 
+		0 00000000 ldc 0
+		1 FFFFFB00 ldc -5
+		2 00000500 ldc +5
+		3 FFFFFF11 loop: br loop
+		4 00000011 br next
+		5 00000000 next: 
+		5 00000300 ldc loop
+		6 00000700 ldc var1
+		7 00000000 var1: data 0
+		A 00000012 HALT
+
+=>
+ Assembler successfully skips empty lines and comments
+=>
+The implementation of the instruction SET can be seen in the breakdown of the code 
+=>
+Assembler accepts decimal, octal and hexadecimal values in data 
+
+
+
+TESTING :- 
+
+=========================
+======== Given Test Files ->
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~
+1)test1.asm--
+	OUTPUT :
+	*test1.log - 
+		Line: 2 WARNING: Unused Label 
+		WARNING !! : HALT not found 
+		No errors!
+
+	*test1.lst (provided in the submission)
+	*test1.o (provided in the submission)
+
+
+~~~~~~~~~~~~~~~~~~~~~~
+2)test2.asm
+	OUTPUT: 
+	*test2.log - 
+		Line: 3 WARNING: Unused Label
+		WARNING !! : HALT not found
+		Line: 4 ERROR: Duplicate Label used
+		Line: 5 ERROR: Label not declared
+		Line: 6 ERROR: Invalid Label Format
+		Line: 7 ERROR: Operand is missing
+		Line: 8 ERROR: Extra Operand in zero operand operation
+		Line: 9 ERROR: Extra Operand present
+		Line: 10 ERROR: Invalid Label Name
+		Line: 11 ERROR: Invalid Operation Name
+		Line: 12 ERROR: Invalid Operation Name
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~
+3)test3.asm
+	OUTPUT:
+	*test3.log
+		No errors!
+
+	*test3.lst (provided in the submission)
+	*test3.o (provided in the submission)
+
+
+==========================
+======== Custom Test Files ->
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1)errors.asm
+->This program is a test of error detection of various types
+	
+	OUTPUT:
+	*errors.log
+		Line: 3 WARNING: Unused Label 
+		WARNING !! : HALT not found 
+		Line: 1 ERROR: Invalid Label Format
+		Line: 2 ERROR: Invalid Label Name
+		Line: 4 ERROR: Duplicate Label used 
+		Line: 5 ERROR: Operand is missing
+		Line: 6 ERROR: Extra Operand in  zero operand operation
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2)setTest.asm
+-> This program is a test the functioning of SET function 
+	OUTPUT:
+	*setTest.log
+		No errors!
+	
+	*setTest.lst (provided in the submission)
+	*setTest.o (provided in the submission)
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3)sum.asm
+-> This program to fin and store the sum of elements in an array
+	OUTPUT:
+	*sum.log 
+		No errors!
+
+	*sum.lst (provided in the submission)
+	*sum.o (provided in the submission)
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4)move.asm
+-> This program is to move the value at memory location l1 to l2 
+	OUTPUT:
+	*move.log
+		No errors!
+
+	*move.lst (provided in the submission)
+	*move.o (provided in the submission)
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5)swap.asm
+-> This program is to swap the values at memory locations l1 and l2
+	OUTPUT:
+	*swap.log
+		No errors!
+              
+	*swap.lst (provided in the submission)
+	*swap.o (provided in the submission)
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+6)minEle.asm
+-> This program is to find the value of the minimum element in an array 
+	OUTPUT:
+	*minEle.log
+		No errors!
+	
+	*minEle.lst (provided in the submission)
+	*minEle.o (provided in the submission)
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+7)maxEle.asm
+-> This program is to find the value of the maximum element in an array 
+	OUTPUT:
+	*maxEle.log
+		No errors!
+
+	*maxEle.lst (provided in the submission)
+	*maxEle.o (provided in the submission)
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+8)binSrch.asm
+-> This program is to find the index of the target value in an array using binary search
+	OUTPUT:
+	1)binSrch.log
+		No errors!
+
+	2)binSrch.lst (provided in the submission)
+	3)binSrch.o (provided in the submission)
+
+
+////////////////////////
+////////////////////////
+EMULATOR :-
+
+=>
+For all the test case (including the given test files , custom files and bubblesort program), the respective .o files are working with all the Functionalities
+=> 
+The available options for emu are as follows  :
+	-trace  show instruction trace
+	-read   show memory reads
+	-write  show memory writes
+	-before show memory dump before execution
+	-after  show memory dump after execution
+	-wipe   wipe written flags before execution
+	-isa    display ISA
+=>
+Can detect errors. Also can detect if we have an infinite loop or out of bound access in the program
+=>
+Output of all functions are generated in the terminal itself (verfied for all the test cases)
+For e.g binSrch.o : 
+
+-before ->
+Memory dump before execution:
+00000000 00002D00 00000004 00002C00 00000004 
+00000004 00000007 00002910 00002C00 00000004 
+00000008 00002D00 00000004 00000006 00000100 
+0000000C 00000009 00002E00 00000005 00002E00 
+00000010 00000004 00003000 00000006 00000004 
+00000014 00002A00 00000004 00000007 00000D0F 
+00000018 00000610 00002E00 00000004 FFFFFF01 
+0000001C 00002D00 00000005 FFFFE111 00002E00 
+00000020 00000004 00000101 00002C00 00000005 
+00000024 FFFFDB11 00002E00 00000004 00002B00 
+00000028 00000005 00000012 00000007 00000064 
+0000002C 00000000 00000009 00000064 00000012 
+00000030 00000006 00000004 00000007 0000000A 
+00000034 00000008 00000005 00000009 00000002 
+00000038 00000001 00000003 
+91 instructions executed
+
+
+-trace ->
+PC = 00000001, SP = 00000000, A = 0000002D, B = 00000000 ldc 0000002D
+PC = 00000002, SP = 00000000, A = 00000009, B = 00000000 ldnl 00000000
+PC = 00000003, SP = 00000000, A = 0000002C, B = 00000009 ldc 0000002C
+PC = 00000004, SP = 00000000, A = 00000000, B = 00000009 ldnl 00000000
+PC = 00000005, SP = 00000000, A = 00000009, B = 00000009 sub 
+PC = 00000006, SP = 00000000, A = 00000009, B = 00000009 brlz 00000029
+PC = 00000007, SP = 00000000, A = 0000002C, B = 00000009 ldc 0000002C
+PC = 00000008, SP = 00000000, A = 00000000, B = 00000009 ldnl 00000000
+PC = 00000009, SP = 00000000, A = 0000002D, B = 00000000 ldc 0000002D
+PC = 0000000A, SP = 00000000, A = 00000009, B = 00000000 ldnl 00000000
+PC = 0000000B, SP = 00000000, A = 00000009, B = 00000000 add 
+PC = 0000000C, SP = 00000000, A = 00000001, B = 00000009 ldc 00000001
+PC = 0000000D, SP = 00000000, A = 00000004, B = 00000009 shr 
+PC = 0000000E, SP = 00000000, A = 0000002E, B = 00000004 ldc 0000002E
+PC = 0000000F, SP = 00000000, A = 0000002E, B = 00000004 stnl 00000000
+PC = 00000010, SP = 00000000, A = 0000002E, B = 0000002E ldc 0000002E
+PC = 00000011, SP = 00000000, A = 00000004, B = 0000002E ldnl 00000000
+PC = 00000012, SP = 00000000, A = 00000030, B = 00000004 ldc 00000030
+PC = 00000013, SP = 00000000, A = 00000034, B = 00000004 add 
+PC = 00000014, SP = 00000000, A = 00000008, B = 00000004 ldnl 00000000
+PC = 00000015, SP = 00000000, A = 0000002A, B = 00000008 ldc 0000002A
+PC = 00000016, SP = 00000000, A = 00000007, B = 00000008 ldnl 00000000
+PC = 00000017, SP = 00000000, A = 00000001, B = 00000008 sub 
+PC = 00000018, SP = 00000000, A = 00000001, B = 00000008 brz 0000000D
+PC = 00000019, SP = 00000000, A = 00000001, B = 00000008 brlz 00000006
+PC = 0000001A, SP = 00000000, A = 0000002E, B = 00000001 ldc 0000002E
+PC = 0000001B, SP = 00000000, A = 00000004, B = 00000001 ldnl 00000000
+PC = 0000001C, SP = 00000000, A = 00000003, B = 00000001 adc FFFFFFFF
+PC = 0000001D, SP = 00000000, A = 0000002D, B = 00000003 ldc 0000002D
+PC = 0000001E, SP = 00000000, A = 0000002D, B = 00000003 stnl 00000000
+PC = 00000000, SP = 00000000, A = 0000002D, B = 00000003 br FFFFFFE1
+PC = 00000001, SP = 00000000, A = 0000002D, B = 0000002D ldc 0000002D
+PC = 00000002, SP = 00000000, A = 00000003, B = 0000002D ldnl 00000000
+PC = 00000003, SP = 00000000, A = 0000002C, B = 00000003 ldc 0000002C
+PC = 00000004, SP = 00000000, A = 00000000, B = 00000003 ldnl 00000000
+PC = 00000005, SP = 00000000, A = 00000003, B = 00000003 sub 
+PC = 00000006, SP = 00000000, A = 00000003, B = 00000003 brlz 00000029
+PC = 00000007, SP = 00000000, A = 0000002C, B = 00000003 ldc 0000002C
+PC = 00000008, SP = 00000000, A = 00000000, B = 00000003 ldnl 00000000
+PC = 00000009, SP = 00000000, A = 0000002D, B = 00000000 ldc 0000002D
+PC = 0000000A, SP = 00000000, A = 00000003, B = 00000000 ldnl 00000000
+PC = 0000000B, SP = 00000000, A = 00000003, B = 00000000 add 
+PC = 0000000C, SP = 00000000, A = 00000001, B = 00000003 ldc 00000001
+PC = 0000000D, SP = 00000000, A = 00000001, B = 00000003 shr 
+PC = 0000000E, SP = 00000000, A = 0000002E, B = 00000001 ldc 0000002E
+PC = 0000000F, SP = 00000000, A = 0000002E, B = 00000001 stnl 00000000
+PC = 00000010, SP = 00000000, A = 0000002E, B = 0000002E ldc 0000002E
+PC = 00000011, SP = 00000000, A = 00000001, B = 0000002E ldnl 00000000
+PC = 00000012, SP = 00000000, A = 00000030, B = 00000001 ldc 00000030
+PC = 00000013, SP = 00000000, A = 00000031, B = 00000001 add 
+PC = 00000014, SP = 00000000, A = 00000004, B = 00000001 ldnl 00000000
+PC = 00000015, SP = 00000000, A = 0000002A, B = 00000004 ldc 0000002A
+PC = 00000016, SP = 00000000, A = 00000007, B = 00000004 ldnl 00000000
+PC = 00000017, SP = 00000000, A = FFFFFFFD, B = 00000004 sub 
+PC = 00000018, SP = 00000000, A = FFFFFFFD, B = 00000004 brz 0000000D
+PC = 0000001F, SP = 00000000, A = FFFFFFFD, B = 00000004 brlz 00000006
+PC = 00000020, SP = 00000000, A = 0000002E, B = FFFFFFFD ldc 0000002E
+PC = 00000021, SP = 00000000, A = 00000001, B = FFFFFFFD ldnl 00000000
+PC = 00000022, SP = 00000000, A = 00000002, B = FFFFFFFD adc 00000001
+PC = 00000023, SP = 00000000, A = 0000002C, B = 00000002 ldc 0000002C
+PC = 00000024, SP = 00000000, A = 0000002C, B = 00000002 stnl 00000000
+PC = 00000000, SP = 00000000, A = 0000002C, B = 00000002 br FFFFFFDB
+PC = 00000001, SP = 00000000, A = 0000002D, B = 0000002C ldc 0000002D
+PC = 00000002, SP = 00000000, A = 00000003, B = 0000002C ldnl 00000000
+PC = 00000003, SP = 00000000, A = 0000002C, B = 00000003 ldc 0000002C
+PC = 00000004, SP = 00000000, A = 00000002, B = 00000003 ldnl 00000000
+PC = 00000005, SP = 00000000, A = 00000001, B = 00000003 sub 
+PC = 00000006, SP = 00000000, A = 00000001, B = 00000003 brlz 00000029
+PC = 00000007, SP = 00000000, A = 0000002C, B = 00000001 ldc 0000002C
+PC = 00000008, SP = 00000000, A = 00000002, B = 00000001 ldnl 00000000
+PC = 00000009, SP = 00000000, A = 0000002D, B = 00000002 ldc 0000002D
+PC = 0000000A, SP = 00000000, A = 00000003, B = 00000002 ldnl 00000000
+PC = 0000000B, SP = 00000000, A = 00000005, B = 00000002 add 
+PC = 0000000C, SP = 00000000, A = 00000001, B = 00000005 ldc 00000001
+PC = 0000000D, SP = 00000000, A = 00000002, B = 00000005 shr 
+PC = 0000000E, SP = 00000000, A = 0000002E, B = 00000002 ldc 0000002E
+PC = 0000000F, SP = 00000000, A = 0000002E, B = 00000002 stnl 00000000
+PC = 00000010, SP = 00000000, A = 0000002E, B = 0000002E ldc 0000002E
+PC = 00000011, SP = 00000000, A = 00000002, B = 0000002E ldnl 00000000
+PC = 00000012, SP = 00000000, A = 00000030, B = 00000002 ldc 00000030
+PC = 00000013, SP = 00000000, A = 00000032, B = 00000002 add 
+PC = 00000014, SP = 00000000, A = 00000007, B = 00000002 ldnl 00000000
+PC = 00000015, SP = 00000000, A = 0000002A, B = 00000007 ldc 0000002A
+PC = 00000016, SP = 00000000, A = 00000007, B = 00000007 ldnl 00000000
+PC = 00000017, SP = 00000000, A = 00000000, B = 00000007 sub 
+PC = 00000025, SP = 00000000, A = 00000000, B = 00000007 brz 0000000D
+PC = 00000026, SP = 00000000, A = 0000002E, B = 00000000 ldc 0000002E
+PC = 00000027, SP = 00000000, A = 00000002, B = 00000000 ldnl 00000000
+PC = 00000028, SP = 00000000, A = 0000002B, B = 00000002 ldc 0000002B
+PC = 00000029, SP = 00000000, A = 0000002B, B = 00000002 stnl 00000000
+PC = 0000002A, SP = 00000000, A = 0000002B, B = 00000002 HALT 
+Program execution finished!
+91 instructions executed
+
+
+-after ->
+memory dump after execution
+00000000 00002D00 00000004 00002C00 00000004 
+00000004 00000007 00002910 00002C00 00000004 
+00000008 00002D00 00000004 00000006 00000100 
+0000000C 00000009 00002E00 00000005 00002E00 
+00000010 00000004 00003000 00000006 00000004 
+00000014 00002A00 00000004 00000007 00000D0F 
+00000018 00000610 00002E00 00000004 FFFFFF01 
+0000001C 00002D00 00000005 FFFFE111 00002E00 
+00000020 00000004 00000101 00002C00 00000005 
+00000024 FFFFDB11 00002E00 00000004 00002B00 
+00000028 00000005 00000012 00000007 00000002 
+0000002C 00000002 00000003 00000002 00000012 
+00000030 00000006 00000004 00000007 0000000A 
+00000034 00000008 00000005 00000009 00000002 
+00000038 00000001 00000003 
+91 instructions executed
+
+
+
+
